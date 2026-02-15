@@ -13,43 +13,78 @@
 </head>
 <body>
 <p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="utf-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Ma Biographie en RA&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Bibliothèques AR.js et A-Frame via CDN sécurisés --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://aframe.io/releases/1.2.0/aframe.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1">&lt;html lang="fr"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Expérience RA - Classe&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Chargement de A-Frame --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://aframe.io/releases/1.4.0/aframe.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Chargement de AR.js pour A-Frame --&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"&gt;&lt;/script&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { margin: 0; overflow: hidden; font-family: sans-serif; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.instruction {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: fixed;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>top: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>left: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(-50%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0, 0, 0, 0.6);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;body style="margin: 0; overflow: hidden;"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Scène AR --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Message d'instruction pour les élèves --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="instruction"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Visez le marqueur pour voir la biographie</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Scène AR.js --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- vr-mode-ui="enabled: false" désactive le bouton VR inutile ici --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- arjs="sourceType: webcam; debugUIEnabled: false;" configure la caméra --&gt;</p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;a-scene<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>embedded<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix;"</p>
-<p class="p1"><span class="Apple-converted-space">      </span>renderer="logarithmicDepthBuffer: true;"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">      </span></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Utilisation du fichier .patt local (dans le même dossier) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a-marker type="pattern" url="marqueur.patt"&gt;</p>
-<p class="p2"><span class="Apple-converted-space">        </span></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Utilisation de l'image .png locale (dans le même dossier) --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- On la place à plat (rotation -90) et un peu plus grande --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;a-image<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>src="biographie.png"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>position="0 0.5 0"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>rotation="-90 0 0"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>width="2"<span class="Apple-converted-space"> </span></p>
-<p class="p1"><span class="Apple-converted-space">          </span>height="2.8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a-image&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>embedded<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>vr-mode-ui="enabled: false"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>arjs="sourceType: webcam; debugUIEnabled: false;"&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/a-marker&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Gestion des ressources (images, sons, etc.) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a-assets&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Remplacez par le nom exact de votre image si nécessaire --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;img id="ma-bio" src="biographie.png"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a-assets&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a-entity camera&gt;&lt;/a-entity&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Définition du marqueur personnalisé --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- type="pattern" indique qu'on utilise un fichier .patt --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- url="marqueur.patt" est le chemin vers votre fichier créé via AR.js Marker Training --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a-marker type="pattern" url="marqueur.patt"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- L'image de la biographie qui apparaîtra sur le marqueur --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- position="0 0.1 0" : Légèrement au dessus du marqueur pour éviter les clignotements --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- rotation="-90 0 0" : Pour que l'image soit à plat sur le marqueur --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- width et height : Ajustez selon les proportions de votre image .png --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;a-image<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>src="#ma-bio"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>position="0 0.1 0"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>rotation="-90 0 0"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>width="2"<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>height="2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/a-image&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/a-marker&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Caméra de la scène --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a-entity camera&gt;&lt;/a-entity&gt;</p>
+<p class="p2"><br></p>
 <p class="p1"><span class="Apple-converted-space">    </span>&lt;/a-scene&gt;</p>
 <p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/body&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
 <p class="p1">&lt;/html&gt;</p>
 </body>
 </html>
