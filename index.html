@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RA Classe - Test de Détection</title>
+    <title>RA Classe - Biographie</title>
+    <!-- Bibliothèques A-Frame et AR.js -->
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <style>
         body { margin: 0; overflow: hidden; font-family: sans-serif; }
+        /* Interface utilisateur pour aider les élèves */
         .ui-panel {
             position: fixed;
             top: 10px;
@@ -18,32 +20,25 @@
             color: white;
             border-radius: 8px;
             font-size: 12px;
+            pointer-events: none;
         }
-        .status-badge {
-            display: inline-block;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 5px;
-            font-weight: bold;
-        }
-        .success { background: #00c851; }
         #detection-indicator {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 5px;
+            padding: 8px;
             text-align: center;
             border: 2px solid white;
+            font-weight: bold;
+            text-transform: uppercase;
         }
         .detected { background: #00c851; border-color: #007e33; }
     </style>
 </head>
 <body>
 
+    <!-- Panneau de contrôle visuel -->
     <div class="ui-panel">
-        <div>Fichiers : <span class="status-badge success">Connectés</span></div>
-        <div id="detection-indicator">MARQUEUR NON VU</div>
-        <div style="margin-top: 5px; font-size: 10px; opacity: 0.8;">
-            Conseil : Éclairez bien le marqueur et évitez les reflets.
-        </div>
+        <div>Statut du marqueur :</div>
+        <div id="detection-indicator">Non détecté</div>
     </div>
 
     <a-scene 
@@ -52,19 +47,16 @@
         arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono; trackingMethod: best;">
 
         <a-assets>
-            <!-- On force le rafraîchissement de l'image -->
+            <!-- Image de la biographie -->
             <img id="ma-bio" src="biographie.png" crossorigin="anonymous">
         </a-assets>
 
-        <!-- On utilise un marqueur avec des paramètres de lissage simplifiés -->
-        <a-marker id="target-marker" type="pattern" url="marqueur.patt">
+        <!-- Marqueur personnalisé -->
+        <a-marker id="target-marker" type="pattern" url="marqueur.patt" smooth="true" smoothCount="5">
             
-            <!-- 1. CUBE DE TEST (Si vous voyez le cube, la détection marche !) -->
-            <a-box position="0 0.5 0" material="color: red; opacity: 0.5;" scale="0.5 0.5 0.5">
-                <a-animation attribute="rotation" to="0 360 0" dur="3000" repeat="indefinite"></a-animation>
-            </a-box>
-
-            <!-- 2. VOTRE IMAGE -->
+            <!-- Affichage de l'image de la biographie -->
+            <!-- position="0 0.1 0" : l'image est juste au-dessus du marqueur -->
+            <!-- rotation="-90 0 0" : l'image est posée à plat -->
             <a-image 
                 src="#ma-bio" 
                 position="0 0.1 0" 
@@ -75,6 +67,7 @@
 
         </a-marker>
 
+        <!-- Caméra de la scène -->
         <a-entity camera></a-entity>
     </a-scene>
 
@@ -82,13 +75,15 @@
         const indicator = document.getElementById('detection-indicator');
         const marker = document.getElementById('target-marker');
 
+        // Mise à jour de l'interface quand le marqueur est trouvé
         marker.addEventListener('markerFound', () => {
-            indicator.textContent = "MARQUEUR DÉTECTÉ !";
+            indicator.textContent = "Détecté !";
             indicator.classList.add('detected');
         });
 
+        // Mise à jour de l'interface quand le marqueur est perdu
         marker.addEventListener('markerLost', () => {
-            indicator.textContent = "MARQUEUR NON VU";
+            indicator.textContent = "Non détecté";
             indicator.classList.remove('detected');
         });
     </script>
