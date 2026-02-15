@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RA Classe - Biographie</title>
+    <!-- Chargement des bibliothèques via CDN -->
+    <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+</head>
+<body style="margin: 0; overflow: hidden;">
+
+    <!-- Message de débogage visible au chargement -->
+    <div id="debug-msg" style="position: fixed; top: 10px; left: 10px; z-index: 1000; background: white; padding: 5px; font-family: sans-serif; font-size: 12px;">
+        Initialisation de la caméra...
+    </div>
+
+    <a-scene 
+        embedded 
+        vr-mode-ui="enabled: false" 
+        arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;">
+
+        <a-assets>
+            <!-- Image de la biographie -->
+            <img id="ma-bio" src="biographie.png" crossorigin="anonymous">
+        </a-assets>
+
+        <!-- Marqueur personnalisé (.patt) -->
+        <a-marker type="pattern" url="marqueur.patt">
+            <!-- On affiche l'image à plat sur le marqueur -->
+            <a-image 
+                src="#ma-bio" 
+                position="0 0.1 0" 
+                rotation="-90 0 0" 
+                width="2" 
+                height="2.5">
+            </a-image>
+        </a-marker>
+
+        <a-entity camera></a-entity>
+    </a-scene>
+
+    <script>
+        // On cache le message une fois que la vidéo de la caméra tourne
+        window.addEventListener('arjs-video-loaded', () => {
+            document.getElementById('debug-msg').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
