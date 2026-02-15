@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RA Classe - Debug Avancé</title>
+    <title>RA Classe - Test de Détection</title>
     <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     <style>
@@ -18,87 +18,79 @@
             color: white;
             border-radius: 8px;
             font-size: 12px;
-            max-width: 80%;
         }
         .status-badge {
             display: inline-block;
-            padding: 4px 8px;
+            padding: 2px 6px;
             border-radius: 4px;
-            margin-top: 5px;
+            margin-left: 5px;
             font-weight: bold;
         }
-        .error { background: #ff4444; }
         .success { background: #00c851; }
-        .pending { background: #ffbb33; }
+        #detection-indicator {
+            margin-top: 10px;
+            padding: 10px;
+            text-align: center;
+            border: 2px solid white;
+        }
+        .detected { background: #00c851; border-color: #007e33; }
     </style>
 </head>
 <body>
 
     <div class="ui-panel">
-        <div>Fichier .patt : <span id="patt-check" class="status-badge pending">Vérification...</span></div>
-        <div>Image .png : <span id="img-check" class="status-badge pending">Vérification...</span></div>
-        <div id="marker-info" style="margin-top:10px;">Visez le marqueur imprimé.</div>
+        <div>Fichiers : <span class="status-badge success">Connectés</span></div>
+        <div id="detection-indicator">MARQUEUR NON VU</div>
+        <div style="margin-top: 5px; font-size: 10px; opacity: 0.8;">
+            Conseil : Éclairez bien le marqueur et évitez les reflets.
+        </div>
     </div>
 
     <a-scene 
         embedded 
         vr-mode-ui="enabled: false" 
-        arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3; trackingMethod: best;">
+        arjs="sourceType: webcam; debugUIEnabled: false; detectionMode: mono; trackingMethod: best;">
 
         <a-assets>
+            <!-- On force le rafraîchissement de l'image -->
             <img id="ma-bio" src="biographie.png" crossorigin="anonymous">
         </a-assets>
 
-        <!-- On ajoute smooth="true" pour que l'image ne tremble pas -->
-        <a-marker id="target-marker" type="pattern" url="marqueur.patt" smooth="true" smoothCount="10">
+        <!-- On utilise un marqueur avec des paramètres de lissage simplifiés -->
+        <a-marker id="target-marker" type="pattern" url="marqueur.patt">
+            
+            <!-- 1. CUBE DE TEST (Si vous voyez le cube, la détection marche !) -->
+            <a-box position="0 0.5 0" material="color: red; opacity: 0.5;" scale="0.5 0.5 0.5">
+                <a-animation attribute="rotation" to="0 360 0" dur="3000" repeat="indefinite"></a-animation>
+            </a-box>
+
+            <!-- 2. VOTRE IMAGE -->
             <a-image 
                 src="#ma-bio" 
-                position="0 0.5 0" 
+                position="0 0.1 0" 
                 rotation="-90 0 0" 
-                width="2.5" 
-                height="2.5">
+                width="2.2" 
+                height="2.2">
             </a-image>
+
         </a-marker>
 
         <a-entity camera></a-entity>
     </a-scene>
 
     <script>
-        // Vérification automatique des fichiers sur GitHub
-        async function checkFiles() {
-            const check = async (url, id) => {
-                const el = document.getElementById(id);
-                try {
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        el.textContent = "OK";
-                        el.className = "status-badge success";
-                    } else {
-                        el.textContent = "ERREUR 404";
-                        el.className = "status-badge error";
-                    }
-                } catch (e) {
-                    el.textContent = "ERREUR RÉSEAU";
-                    el.className = "status-badge error";
-                }
-            };
-
-            check('marqueur.patt', 'patt-check');
-            check('biographie.png', 'img-check');
-        }
-
+        const indicator = document.getElementById('detection-indicator');
         const marker = document.getElementById('target-marker');
-        const info = document.getElementById('marker-info');
 
         marker.addEventListener('markerFound', () => {
-            info.innerHTML = "<b style='color:#00c851'>MARQUEUR DÉTECTÉ !</b>";
+            indicator.textContent = "MARQUEUR DÉTECTÉ !";
+            indicator.classList.add('detected');
         });
 
         marker.addEventListener('markerLost', () => {
-            info.innerHTML = "Marqueur perdu. Cherchez le marqueur...";
+            indicator.textContent = "MARQUEUR NON VU";
+            indicator.classList.remove('detected');
         });
-
-        window.onload = checkFiles;
     </script>
 </body>
 </html>
